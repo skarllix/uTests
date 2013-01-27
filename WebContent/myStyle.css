@@ -1,0 +1,46 @@
+@CHARSET "UTF-8";
+
+body{
+	background-color: #ebebeb;
+	color: #000;
+	font-family: tahoma;
+	font-size: 14px;
+}
+
+a{
+	color: #000;
+	font-family: tahoma;
+	font-size: 14px;
+	
+}
+
+table,td {
+	border-width: 2px;
+	border-color: #eee;
+	border-style: solid;
+	border-collapse:collapse;
+	padding: 3px;
+}
+
+/*
+input[type="submit"]
+{
+	background-color: #fff;
+	border: #eee 0px solid;
+	color: #777;
+	font-family: tahoma;
+	font-size: 12px;
+}
+
+input[type="submit"]:hover
+{
+	background-color: #ddd;
+	color : #222;
+}
+
+input[type="submit"]:active
+{
+	background-color: #ccc;
+	top: 1px;
+}
+*/
