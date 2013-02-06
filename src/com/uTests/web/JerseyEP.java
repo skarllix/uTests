@@ -1,9 +1,10 @@
 package com.uTests.web;
 
-@Path("/JaxRS_EP")
+//@Path("/JaxRS_EP")
 public class JerseyEP {
 	
 	public String executeMethod1InEP(){
+		return null;
 		
 	}
 	

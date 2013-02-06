@@ -5,11 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<title>MemKill</title>
+<title>Consume memory</title>
 </head>
 <body>
 
-<h3>memConsume - event test</h3>
+<h3>Consume memory</h3>
 <form action="Gservlet" method="get" target="resFrame">
 	<table>
 		<tr>

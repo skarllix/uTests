@@ -28,6 +28,10 @@ public class Gservlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		//should add the ability to handle requests from both forms (memConsume and 
+		
 		memKB = 0;
 		if (request.getParameter("Allocate") != null) {
 			try {
