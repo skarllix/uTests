@@ -13,7 +13,7 @@
 		String currentPage = null;
 	%>
 	<h3>
-		<a href="index.jsp">uTests</a>
+		<a href="index.jsp">uTests - DO</a>
 	</h3>
 	<ul>
 		<li><a href="index.jsp?currpage=jms">JMS</a></li>
