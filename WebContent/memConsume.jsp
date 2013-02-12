@@ -8,7 +8,6 @@
 <title>Consume memory</title>
 </head>
 <body>
-
 <h3>Consume memory</h3>
 <form action="Gservlet" method="get" target="resFrame">
 	<table>

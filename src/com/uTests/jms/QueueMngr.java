@@ -1,12 +1,15 @@
 //http://docs.oracle.com/cd/E15051_01/wls/docs103/jndi/jndi.html
 package com.uTests.jms;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
 import javax.jms.Queue;
 import javax.jms.QueueBrowser;
 import javax.jms.QueueConnection;
@@ -33,7 +36,6 @@ public class QueueMngr {
 	private Queue queue;
 	private QueueSender qSender;
 	private QueueBrowser qBrowser;
-
 	private QueueReceiver qReceiver;
 	private List<String> result;
 	private Hashtable<String, String> env ;
@@ -41,9 +43,10 @@ public class QueueMngr {
 	//default c'tor
 	public QueueMngr(){
 		env = new Hashtable();//env = new Hashtable<String, String>();
+		result = new ArrayList<String>();
 	}
 	
-	
+	// establish a connection to the messaging queue
 	public String createConnection(String machineIP,String cfName,String qName,long jmsDelay){
 		if(jmsDelay > 0)
 		{
@@ -76,12 +79,12 @@ public class QueueMngr {
 		return "connected successfully";
 	}
 	
-	
+	// send messages to the queue
 	public String sendMsg(String msgType,String msgContent,long inMsgDelay) throws JMSException
 	{
 		qConnection.start();//start the connection
 		result.clear();
-		
+
 		if(msgType.equals("textMsg"))
 		{
 			TextMessage msg;
@@ -94,7 +97,8 @@ public class QueueMngr {
 				result.add("Couldn't create new message");
 			}
 		}
-		if(msgType.equals("mapMsg"))
+		
+		if(msgType.equals("currentlyNotHandeled"))//this should handle Map messages equals("mapMsg")
 		{
 			MapMessage msg;
 			try {
@@ -105,34 +109,40 @@ public class QueueMngr {
 			} catch (JMSException e) {
 				result.add("Couldn't create new message");
 			}
-		}
+		}else
+			result.add("it's not map or txt msg");
 		
 		qConnection.close();
 		return result.get(0);
 	}
 	
-	
+	// Browse queue messages
 	public List<String> browseQ(String msgType) throws JMSException{
+		int i=0;
 		qConnection.start();//start the connection
 		result.clear();
 		
-		
 		Enumeration enumMsgs = qBrowser.getEnumeration();
-		
 		
 		while(enumMsgs.hasMoreElements()){
 			TextMessage msg = (TextMessage) enumMsgs.nextElement();
-			result.add(msg.getText()); // adding the msg content to the list
+			result.add(++i + " : " + msg.getText()); // adding the msg content to the list
 		}
-		
 		qConnection.close();
 		return result;
 	}
 	
 	
-	public List<String> clearQ(){
+	public String clearQ() throws JMSException{
 		result.clear();
-		
-		return result;
+		qConnection.start();
+		Message m;
+		do{
+			m = qReceiver.receive(1);
+		}while(m != null);
+			
+		qConnection.close();
+		result.add("All Cleared");
+		return result.get(0);
 	}
 }

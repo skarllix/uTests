@@ -8,7 +8,7 @@
 <title>JMS Page</title>
 </head>
 <body>
-	<h3>JMS</h3>
+	<h3>WebLogic JMS</h3>
 	<form action="JmsServlet" method="post" target="iframeResult">
 		<table>
 			<tr>
@@ -18,13 +18,13 @@
 				<td>Machine-IP</td><td><input type="text" name="machineIp" value="localhost" /></td>
 			</tr>
 			<tr>
-				<td>Connection Factory JNDI</td><td><input type="text" name="cfJndi" value ="MyCF"/></td>
+				<td>Connection Factory JNDI</td><td><input type="text" name="cfJndi" value ="jndi/CF"/></td>
 			</tr>
 			<tr>
-				<td>Queue JNDI</td><td><input type="text" name="qJndi" value="jms/MyQ" /></td>
+				<td>Queue JNDI</td><td><input type="text" name="qJndi" value="jndi/sQueue" /></td>
 			</tr>
 			<tr>
-				<td>JMS delay</td><td><input type="text" name="jmsDelay" value="0"/></td>
+				<td>JMS delay</td><td><input type="text" name="jmsDelay" value="1"/></td>
 			</tr>
 			<tr>
 				<td>inMessage delay</td><td><input type="text" name="inMsgDelay" value="0"/></td>

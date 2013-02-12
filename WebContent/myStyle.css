@@ -7,6 +7,18 @@ body{
 	font-size: 14px;
 }
 
+ul{
+	list-style: none;
+}
+
+li{
+	float: left;
+	background-color: #ddd;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-left: 6px;
+}
+
 a{
 	color: #000;
 	font-family: tahoma;

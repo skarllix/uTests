@@ -1,21 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Escalation</title>
 </head>
 <body>
-	<form action="Gservlet" method="post" target="escalFrame">
+	<form  id="escalationForm" action="Gservlet" method="get" target="escalFrame">
 		<table>
 			<tr>
-				<td>zaaa</td>
-				<td>dooo</td>
+				<td>transaction count</td>
+				<td><input type="text" name="tansCnt" value="20" id="transCnt" /></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="startIT"
-					name="submitEscalation" /></td>
+				<td>transactions gap</td>
+				<td><input type="color" name="transGap" value="7" />(sec)</td>
+			</tr>
+			<tr>
+				<td><input type="button" value="start" name="submitEscalation" onclick="foo()" /></td>
 			</tr>
 		</table>
 	</form>

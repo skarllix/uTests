@@ -2,7 +2,6 @@ package com.uTests.general;
 
 import java.io.IOException;
 import java.util.Vector;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +28,10 @@ public class Gservlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		//should add the ability to handle requests from both forms (memConsume and 
+		//handle requests from escalation page
+		if(request.getParameter("submitEscalation") != null){
+			response.getWriter().print("copy that!");
+		}
 		
 		memKB = 0;
 		if (request.getParameter("Allocate") != null) {
@@ -38,7 +39,7 @@ public class Gservlet extends HttpServlet {
 			memKB = Integer.parseInt(request.getParameter("memKB"));
 			}
 			catch (NumberFormatException  numExp) {
-				response.getWriter().println("Are you sure about the value u've inserted?!\nseems not ok !!\n");
+				response.getWriter().println("Are you sure about the value u've inserte ?!\nseems not ok !!\n");
 			}
 			if (memKB > 0 && memKB < 900) {
 				meter = request.getParameter("meter");

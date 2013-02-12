@@ -1,6 +1,8 @@
 package com.uTests.jms;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.jms.JMSException;
 import javax.servlet.ServletException;
@@ -23,13 +25,15 @@ public class JmsServlet extends HttpServlet {
 	private String action;
 	private String result;//result to return to the user
 	private QueueMngr qManager;
+	private List<String> browseResult;
 
     public JmsServlet() {
         super();
         result=new String();
+        browseResult = new ArrayList<String>();
     }
 
-
+    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		result = "<link href=\"myStyle.css\" type=\"text/css\" rel=\"stylesheet\" /> ";//add a link to the style sheet page
 		response.setContentType("text/html");//return each response as html page
@@ -49,36 +53,45 @@ public class JmsServlet extends HttpServlet {
 		
 		qManager = new QueueMngr();//new Q manager
 		String connResult = qManager.createConnection(machineIp,cfJndi, qJndi,jmsDelay);//try to establish connection
-		result += connResult;
-		System.out.println("Ok Connected .....");
 		
-		if(action.equals("send")){
-			if(connResult.equals("connected successfully")){
+		if(connResult.equals("connected successfully"))
+		{
+			if(action.equals("send")){
+					try {
+						result += qManager.sendMsg(msgType,msgContent,inMsgDelay);
+					} catch (JMSException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						result += "Error with sending message :<br>"+e.getMessage();
+					}finally{
+						response.getWriter().print(result);
+					}
+				}//end send
+			
+			if(action.equals("browse")){
 				try {
-					System.out.println("Trying to send the message .....");
-					result += qManager.sendMsg(msgType,msgContent,inMsgDelay);
-					System.out.print("Ok send done boss .....");
+					browseResult = qManager.browseQ(msgType);
+					//show build a table to return to the UI
+					for(String msg : browseResult){
+						result += msg + "<br />";
+					}
 				} catch (JMSException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.out.println("Browse queue failed\n");
 				}
-			} else {
-				result += connResult;
-			}
+				response.getWriter().print(result);
+			}//end browse
+			
+			if(action.equals("clear")){
+				try {
+					result += qManager.clearQ();
+				} catch (JMSException e) {
+					result += "Error in clearing the queue : <br>"+ e.getMessage();
+				}finally{
+				response.getWriter().print(result);}
+			}//end clear
+		} else {
+			result += connResult + "<br />";
 			response.getWriter().print(result);
-		}
-		if(action.equals("brose")){
-			try {
-				qManager.browseQ(msgType);
-			} catch (JMSException e) {
-				System.out.println("Browse queue failed\n");
-			}
-			response.getWriter().print(result);
-		}
-		if(action.equals("clear")){
-			result +="Clear";
-			response.getWriter().print(result);
-		}
+		}	
 	}
-
 }

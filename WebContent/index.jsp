@@ -16,31 +16,38 @@
 		<a href="index.jsp">uTests</a>
 	</h3>
 	<ul>
-		<li><a href="index.jsp?jmsWebPage.jsp">JMS</a></li>
+		<li><a href="index.jsp?currpage=jms">JMS</a></li>
 		<li><a href="index.jsp?currpage=memConsume">Consume memory</a></li>
 		<li><a href="index.jsp?currpage=jersey">Jersey Rest</a></li>
 		<li><a href="index.jsp?currpage=escalation">Escalation</a></li>
 	</ul>
-
+	<br />
+	<br />
 
 	<%
 		if (request.getParameter("currpage") != null) {
 			currentPage = request.getParameter("currpage");
 			if (currentPage.equals("memConsume")) {
 	%>
-	<jsp:include page="memConsume.jsp" flush="true" />
+	<jsp:include page="memConsume.jsp" flush="false" />
 	<%
-		}
+		}//end memCon
 			if (currentPage.equals("jersey")) {
 	%>
-	<jsp:include page="webSrvsWebPage.jsp" flush="true" />
+	<jsp:include page="webSrvsWebPage.jsp" flush="false" />
 	<%
-		}
+		}//end webS
 			if(currentPage.equals("escalation")){
 	%>
-	<jsp:include page="escalation.jsp" flush="true" />
+	<jsp:include page="escalation.jsp" flush="false" />
+	
 	<%
-		}
+		}//end escalation
+			if(currentPage.equals("jms")){
+	%>
+	<jsp:include page="jmsWebPage.jsp" flush="false" />
+	<%
+		}//end jms
 			}else
 				{ out.print("No page were selected"); }
 	%>
